@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malika — Internship Feedback</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── LANDING PAGE ── -->
+  <div id="page-landing" class="page active">
+    <div class="landing-inner">
+
+      <h1 class="greeting-heading">
+        Hello, I'm Malika —<br>
+        thank you for taking 5 minutes<br>
+        to share your thoughts.
+      </h1>
+
+      <p class="greeting-sub">
+        Your honest feedback on my internship experience means everything to me.
+        Please share your name to get started.
+      </p>
+
+      <div class="name-input-wrap">
+        <span class="name-label">Your name</span>
+        <input
+          id="name-field"
+          class="name-input"
+          type="text"
+          placeholder="e.g. Amina, John…"
+          maxlength="40"
+        />
+        <button class="btn-primary" onclick="beginSurvey()">
+          Begin the survey →
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ── SURVEY PAGE ── -->
+  <div id="page-survey" class="page">
+    <div class="survey-inner">
+
+      <h2 id="survey-greeting" class="survey-greeting">Hello ✨</h2>
+      <p class="survey-tagline">Your thoughts will help me grow. Each answer is a gift.</p>
+
+      <!-- Q1: Overall Performance -->
+      <div class="question-card">
+        <div class="q-label">
+          <span class="q-num">1</span>
+          How would you rate my overall performance during the internship?
+        </div>
+        <div class="likert-row" id="q1-likert">
+          <button class="likert-btn" onclick="selectLikert(this)">1</button>
+          <button class="likert-btn" onclick="selectLikert(this)">2</button>
+          <button class="likert-btn" onclick="selectLikert(this)">3</button>
+          <button class="likert-btn" onclick="selectLikert(this)">4</button>
+          <button class="likert-btn" onclick="selectLikert(this)">5</button>
+        </div>
+        <div class="likert-labels">
+          <span>Needs improvement</span>
+          <span>Excellent</span>
+        </div>
+      </div>
+
+      <!-- Q2: Strengths -->
+      <div class="question-card">
+        <div class="q-label">
+          <span class="q-num">2</span>
+          What strengths did you notice in my work?
+          <span style="font-size:12px; color:#a898b8;">(Select all that apply)</span>
+        </div>
+        <div class="choice-grid" id="q2-strengths">
+          <button class="choice-btn" onclick="toggleChoice(this)">Communication skills</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Problem-solving ability</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Attention to detail</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Initiative & proactivity</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Teamwork & collaboration</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Technical competence</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Adaptability</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Positive attitude</button>
+        </div>
+      </div>
+
+      <!-- Q3: Improvements -->
+      <div class="question-card">
+        <div class="q-label">
+          <span class="q-num">3</span>
+          What areas could I improve on?
+          <span style="font-size:12px; color:#a898b8;">(Select all that apply)</span>
+        </div>
+        <div class="choice-grid" id="q3-improve">
+          <button class="choice-btn" onclick="toggleChoice(this)">Time management</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Taking more initiative</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Technical skills depth</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Asking more questions</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Presentation skills</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Documentation habits</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Confidence in sharing ideas</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Meeting deadlines</button>
+        </div>
+      </div>
+
+      <!-- Q4: Recommend -->
+      <div class="question-card">
+        <div class="q-label">
+          <span class="q-num">4</span>
+          How likely would you be to recommend me for a future opportunity?
+        </div>
+        <div class="likert-row" id="q4-likert">
+          <button class="likert-btn" onclick="selectLikert(this)">1</button>
+          <button class="likert-btn" onclick="selectLikert(this)">2</button>
+          <button class="likert-btn" onclick="selectLikert(this)">3</button>
+          <button class="likert-btn" onclick="selectLikert(this)">4</button>
+          <button class="likert-btn" onclick="selectLikert(this)">5</button>
+        </div>
+        <div class="likert-labels">
+          <span>Unlikely</span>
+          <span>Definitely</span>
+        </div>
+      </div>
+
+      <!-- Q5: Open Comments -->
+      <div class="question-card">
+        <div class="q-label">
+          <span class="q-num">5</span>
+          Any final comments, advice, or a memorable moment from our time together?
+        </div>
+        <textarea
+          id="q5-comments"
+          class="survey-textarea"
+          placeholder="Your words matter deeply — share whatever feels right…"
+          rows="4"
+        ></textarea>
+      </div>
+
+      <button class="btn-submit" onclick="submitSurvey()">
+        Submit my feedback ✨
+      </button>
+
+    </div>
+  </div>
+
+
+  <!-- ── THANK YOU PAGE ── -->
+  <div id="page-thankyou" class="page">
+    <div class="ty-inner">
+      <div class="ty-heading">Thank You</div>
+      <p class="ty-note">
+        Your feedback means the world to me.<br>
+        Thank you for being part of my journey at CRDB.
+      </p>
+      <p class="ty-crdb">— Malika 🌸</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
