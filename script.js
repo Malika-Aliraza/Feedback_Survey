@@ -1,5 +1,5 @@
 // ── SHEET URL ── (paste your Apps Script URL here later)
-const SHEET_URL = "YOUR_APPS_SCRIPT_URL_HERE";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbxFDwUI8fa7Wux90WN-UMMSAx2iXBzz-TcT9EcGwA4MkwCUMLMpMhvgZZjm7ELqNJ72/exec";
 
 // ── PAGE NAVIGATION ──
 function showPage(id) {
