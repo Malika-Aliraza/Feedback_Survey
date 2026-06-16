@@ -1,5 +1,5 @@
 // ── SHEET URL ── (paste your Apps Script URL here later)
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbxFDwUI8fa7Wux90WN-UMMSAx2iXBzz-TcT9EcGwA4MkwCUMLMpMhvgZZjm7ELqNJ72/exec";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwWec4XcKeUb7K-ZGh3cWirrdC0BBXrNQRwB-XcPR2WBXRRsUKbvJXkGcO0yylp4DWI/exec";
 
 // ── PAGE NAVIGATION ──
 function showPage(id) {
@@ -67,16 +67,21 @@ function collectAnswers() {
 
 // ── SUBMIT TO GOOGLE SHEETS ──
 async function submitSurvey() {
-
-  // Disable button to prevent double submit
   const btn = document.querySelector('.btn-submit');
+  const answers = collectAnswers();
+
+  // ── DEVICE CHECK ──
+  if (localStorage.getItem('malika_survey_submitted') === 'true') {
+    showAlreadySubmitted();
+    return;
+  }
+
+  // ── DISABLE BUTTON ──
   btn.textContent = 'Sending... ✨';
   btn.disabled = true;
 
-  const answers = collectAnswers();
-
   try {
-    await fetch(SHEET_URL, {
+    const response = await fetch(SHEET_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
@@ -89,11 +94,18 @@ async function submitSurvey() {
         q5_comments:     answers.q5
       })
     });
+
+    // ── SAVE TO DEVICE ──
+    localStorage.setItem('malika_survey_submitted', 'true');
+    localStorage.setItem('malika_survey_name', answers.name);
+
   } catch (err) {
     console.error('Submission error:', err);
+    btn.textContent = 'Submit my feedback ✨';
+    btn.disabled = false;
+    return;
   }
 
-  // Always go to thank you page
   showPage('page-thankyou');
   setTimeout(createSparkles, 400);
 }
@@ -166,7 +178,19 @@ function createPetals() {
 document.addEventListener('DOMContentLoaded', () => {
   createPetals();
 
+  // Check device on page load
+if (localStorage.getItem('malika_survey_submitted') === 'true') {
+  showAlreadySubmitted();
+}
+
   document.getElementById('name-field').addEventListener('keydown', e => {
     if (e.key === 'Enter') beginSurvey();
   });
 });
+
+// ── ALREADY SUBMITTED PAGE ──
+function showAlreadySubmitted() {
+  const name = localStorage.getItem('malika_survey_name') || 'there';
+  showPage('page-duplicate');
+  document.getElementById('duplicate-name').textContent = name;
+}
