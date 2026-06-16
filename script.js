@@ -1,4 +1,4 @@
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbxOe3sxf4tPOn_9w1Z-Aq6zBmlVflirylJf3hdJ11Cgg7cJ-acldNr9x1Khl0uqJyd0/exec";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwO6Q8_7-gvQKsLdbXUAijxSOItjcQgMRGa68uSVtZ8zIBdyOatK5fYKjpHsQVYiZZh/exec";
 
 // ── PAGE NAVIGATION ──
 function showPage(id) {
@@ -92,18 +92,41 @@ function collectAnswers() {
   return { name, q1, q2, q3, q4, q5, q6 };
 }
 
+// ── DEVICE FINGERPRINT ──
+function getDeviceFingerprint() {
+  const raw = [
+    navigator.language,
+    navigator.platform,
+    screen.width + 'x' + screen.height,
+    screen.colorDepth,
+    Intl.DateTimeFormat().resolvedOptions().timeZone,
+    navigator.hardwareConcurrency,
+    navigator.deviceMemory || 'unknown'
+  ].join('|');
+
+  // Simple hash function
+  let hash = 0;
+  for (let i = 0; i < raw.length; i++) {
+    const char = raw.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return Math.abs(hash).toString(36);
+}
+
 // ── SUBMIT ──
 async function submitSurvey() {
-  const btn = document.querySelector('.btn-submit');
+  const btn         = document.querySelector('.btn-submit');
+  const fingerprint = getDeviceFingerprint();
 
-  // Device check
+  // ── DEVICE CHECK (localStorage) ──
   if (localStorage.getItem('malika_survey_submitted') === 'true') {
     showAlreadySubmitted();
     return;
   }
 
   btn.textContent = 'Sending... ✨';
-  btn.disabled = true;
+  btn.disabled    = true;
 
   const answers = collectAnswers();
 
@@ -119,17 +142,20 @@ async function submitSurvey() {
         q3_improvements: answers.q3,
         q4_moment:       answers.q4,
         q5_recommend:    answers.q5,
-        q6_advice:       answers.q6
+        q6_advice:       answers.q6,
+        fingerprint:     fingerprint
       })
     });
 
+    // Save both localStorage AND fingerprint
     localStorage.setItem('malika_survey_submitted', 'true');
     localStorage.setItem('malika_survey_name', answers.name);
+    localStorage.setItem('malika_survey_fingerprint', fingerprint);
 
   } catch (err) {
     console.error('Submission error:', err);
     btn.textContent = 'Submit my feedback ✨';
-    btn.disabled = false;
+    btn.disabled    = false;
     return;
   }
 
@@ -206,7 +232,7 @@ function createPetals() {
 document.addEventListener('DOMContentLoaded', () => {
   createPetals();
 
-  // Device check on load
+  // Check localStorage first
   if (localStorage.getItem('malika_survey_submitted') === 'true') {
     showAlreadySubmitted();
   }
@@ -216,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Enter') beginSurvey();
   });
 
-  // Progress bar updates on textarea input
+  // Progress bar on textarea input
   document.getElementById('q4-moment').addEventListener('input', updateProgress);
   document.getElementById('q6-advice').addEventListener('input', updateProgress);
 });
