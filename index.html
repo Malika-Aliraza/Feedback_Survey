@@ -19,8 +19,8 @@
       </h1>
 
       <p class="greeting-sub">
-        Your honest feedback on my internship experience means everything to me.
-        Please share your name to get started.
+        Your honest feedback on my internship experience means
+        everything to me. Please share your name to get started.
       </p>
 
       <div class="name-input-wrap">
@@ -48,22 +48,23 @@
       <h2 id="survey-greeting" class="survey-greeting">Hello ✨</h2>
       <p class="survey-tagline">Your thoughts will help me grow. Each answer is a gift.</p>
 
-      <!-- Q1: Overall Performance -->
+      <!-- Progress Bar -->
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+      </div>
+
+      <!-- Q1: Emoji Performance Scale -->
       <div class="question-card">
         <div class="q-label">
           <span class="q-num">1</span>
           How would you rate my overall performance during the internship?
         </div>
-        <div class="likert-row" id="q1-likert">
-          <button class="likert-btn" onclick="selectLikert(this)">1</button>
-          <button class="likert-btn" onclick="selectLikert(this)">2</button>
-          <button class="likert-btn" onclick="selectLikert(this)">3</button>
-          <button class="likert-btn" onclick="selectLikert(this)">4</button>
-          <button class="likert-btn" onclick="selectLikert(this)">5</button>
-        </div>
-        <div class="likert-labels">
-          <span>Needs improvement</span>
-          <span>Excellent</span>
+        <div class="emoji-row" id="q1-emoji">
+          <button class="emoji-btn" data-label="Poor (1)"      onclick="selectEmoji(this)">😔<span>Poor</span></button>
+          <button class="emoji-btn" data-label="Fair (2)"      onclick="selectEmoji(this)">😐<span>Fair</span></button>
+          <button class="emoji-btn" data-label="Good (3)"      onclick="selectEmoji(this)">🙂<span>Good</span></button>
+          <button class="emoji-btn" data-label="Great (4)"     onclick="selectEmoji(this)">😊<span>Great</span></button>
+          <button class="emoji-btn" data-label="Excellent (5)" onclick="selectEmoji(this)">🤩<span>Excellent</span></button>
         </div>
       </div>
 
@@ -72,7 +73,7 @@
         <div class="q-label">
           <span class="q-num">2</span>
           What strengths did you notice in my work?
-          <span style="font-size:12px; color:#a898b8;">(Select all that apply)</span>
+          <span style="font-size:12px; color:#a898b8; font-weight:300;">(Select all that apply)</span>
         </div>
         <div class="choice-grid" id="q2-strengths">
           <button class="choice-btn" onclick="toggleChoice(this)">Communication skills</button>
@@ -91,7 +92,7 @@
         <div class="q-label">
           <span class="q-num">3</span>
           What areas could I improve on?
-          <span style="font-size:12px; color:#a898b8;">(Select all that apply)</span>
+          <span style="font-size:12px; color:#a898b8; font-weight:300;">(Select all that apply)</span>
         </div>
         <div class="choice-grid" id="q3-improve">
           <button class="choice-btn" onclick="toggleChoice(this)">Time management</button>
@@ -105,33 +106,53 @@
         </div>
       </div>
 
-      <!-- Q4: Recommend -->
+      <!-- Q4: Highlight Moment -->
       <div class="question-card">
         <div class="q-label">
           <span class="q-num">4</span>
-          How likely would you be to recommend me for a future opportunity?
+          What is one specific moment or task where you felt I made a real contribution?
         </div>
-        <div class="likert-row" id="q4-likert">
-          <button class="likert-btn" onclick="selectLikert(this)">1</button>
-          <button class="likert-btn" onclick="selectLikert(this)">2</button>
-          <button class="likert-btn" onclick="selectLikert(this)">3</button>
-          <button class="likert-btn" onclick="selectLikert(this)">4</button>
-          <button class="likert-btn" onclick="selectLikert(this)">5</button>
+        <textarea
+          id="q4-moment"
+          class="survey-textarea"
+          placeholder="Share a specific memory or moment…"
+          rows="4"
+        ></textarea>
+      </div>
+
+      <!-- Q5: NPS -->
+      <div class="question-card">
+        <div class="q-label">
+          <span class="q-num">5</span>
+          On a scale of 0–10, how likely are you to recommend me to a future employer or colleague?
         </div>
-        <div class="likert-labels">
-          <span>Unlikely</span>
+        <div class="nps-row" id="q5-nps">
+          <button class="nps-btn" onclick="selectNPS(this)">0</button>
+          <button class="nps-btn" onclick="selectNPS(this)">1</button>
+          <button class="nps-btn" onclick="selectNPS(this)">2</button>
+          <button class="nps-btn" onclick="selectNPS(this)">3</button>
+          <button class="nps-btn" onclick="selectNPS(this)">4</button>
+          <button class="nps-btn" onclick="selectNPS(this)">5</button>
+          <button class="nps-btn" onclick="selectNPS(this)">6</button>
+          <button class="nps-btn" onclick="selectNPS(this)">7</button>
+          <button class="nps-btn" onclick="selectNPS(this)">8</button>
+          <button class="nps-btn" onclick="selectNPS(this)">9</button>
+          <button class="nps-btn" onclick="selectNPS(this)">10</button>
+        </div>
+        <div class="nps-labels">
+          <span>Not likely</span>
           <span>Definitely</span>
         </div>
       </div>
 
-      <!-- Q5: Open Comments -->
+      <!-- Q6: Final Advice -->
       <div class="question-card">
         <div class="q-label">
-          <span class="q-num">5</span>
-          Any final comments, advice, or a memorable moment from our time together?
+          <span class="q-num">6</span>
+          Any final advice or a message you'd like to leave for me?
         </div>
         <textarea
-          id="q5-comments"
+          id="q6-advice"
           class="survey-textarea"
           placeholder="Your words matter deeply — share whatever feels right…"
           rows="4"
@@ -158,18 +179,20 @@
     </div>
   </div>
 
-  <!-- ── DUPLICATE PAGE ── -->
-<div id="page-duplicate" class="page">
-  <div class="ty-inner">
-    <div class="ty-heading">Already Submitted</div>
-    <p class="ty-note">
-      Hey <span id="duplicate-name"></span> 🌸<br>
-      It looks like you've already shared your feedback.<br>
-      Your response has been recorded — thank you!
-    </p>
-    <p class="ty-crdb">— Malika 💜</p>
+
+  <!-- ── ALREADY SUBMITTED PAGE ── -->
+  <div id="page-duplicate" class="page">
+    <div class="duplicate-inner">
+      <div class="ty-heading">Already Submitted</div>
+      <p class="ty-note">
+        Hey <span id="duplicate-name"></span> 🌸<br>
+        It looks like you've already shared your feedback.<br>
+        Your response has been recorded — thank you!
+      </p>
+      <p class="ty-crdb">— Malika 💜</p>
+    </div>
   </div>
-</div>
+
 
   <script src="script.js"></script>
 </body>
