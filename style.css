@@ -515,6 +515,58 @@ body {
   font-size: 13px;
 }
 
+/* ── LANGUAGE TOGGLE ── */
+.lang-toggle {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(200, 170, 230, 0.35);
+  border-radius: 40px;
+  padding: 6px 10px;
+  box-shadow: 0 4px 16px rgba(160, 120, 220, 0.1);
+}
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 30px;
+  border: none;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #9080a8;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.lang-btn .flag {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.lang-btn.active {
+  background: linear-gradient(135deg, rgba(196, 144, 224, 0.2), rgba(154, 184, 240, 0.2));
+  color: #5a3f6b;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(160, 120, 220, 0.15);
+}
+
+.lang-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(200, 170, 230, 0.4);
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 480px) {
   .greeting-heading  { font-size: 22px; }

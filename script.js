@@ -1,5 +1,223 @@
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbyPabTavnJaPwDhJJPcyznwDvXBR89JMP6hMOmbSkgW3AUweobM4-rQZzicGeS5OJp9/exec";
 
+// ── TRANSLATIONS ──
+const translations = {
+  en: {
+    // Landing
+    landingHeading:  "Hello, I'm Malika —\nthank you for taking 5 minutes\nto share your thoughts.",
+    landingSub:      "Your honest feedback on my internship experience means everything to me. Please share your details to get started.",
+    labelName:       "Your name",
+    labelPhone:      "Phone number",
+    labelEmail:      "Email address",
+    placeholderName:  "e.g. Amina, John…",
+    placeholderPhone: "e.g. +255 712 345 678",
+    placeholderEmail: "e.g. amina@crdb.com",
+    btnBegin:        "Begin the survey →",
+
+    // Survey
+    tagline: "Your thoughts will help me grow.",
+    q1Label: "How would you rate my overall performance during the internship?",
+    q2Label: "What strengths did you notice in my work?",
+    q2Sub:   "(Select all that apply)",
+    q3Label: "What areas could I improve on?",
+    q3Sub:   "(Select all that apply)",
+    q4Label: "What is one specific moment or task where you felt I made a real contribution?",
+    q4Placeholder: "Share a specific memory or moment…",
+    q5Label: "On a scale of 0–10, how likely are you to recommend me to a future employer or colleague?",
+    q6Label: "Any final advice or a message you'd like to leave for me?",
+    q6Placeholder: "Your words matter deeply — share whatever feels right…",
+    btnSubmit: "Submit feedback ✨",
+    npsLow:  "Not likely",
+    npsHigh: "Definitely",
+
+    // Emoji labels
+    emojiPoor:      "Poor",
+    emojiFair:      "Fair",
+    emojiGood:      "Good",
+    emojiGreat:     "Great",
+    emojiExcellent: "Excellent",
+
+    // Strengths
+    strengths: [
+      "Communication skills", "Problem-solving ability",
+      "Attention to detail",  "Initiative & proactivity",
+      "Teamwork & collaboration", "Technical competence",
+      "Adaptability",         "Positive attitude"
+    ],
+
+    // Improvements
+    improvements: [
+      "Time management",       "Taking more initiative",
+      "Technical skills depth","Asking more questions",
+      "Communication skills",   "Documentation habits",
+      "Confidence in sharing ideas", "Meeting deadlines"
+    ],
+
+    // Thank you
+    tyHeading: "Thank You",
+    tyNote:    "Your feedback means the world to me.\nThank you for being part of my journey at CRDB.",
+    tySig:     "— Malika 🌸",
+
+    // Duplicate
+    dupHeading: "Already Submitted",
+    dupNote:    "It looks like you've already shared your feedback.\nYour response has been recorded — thank you!",
+    dupSig:     "— Malika 💜",
+
+    // Validation
+    npsLowLabel: "Not likely",
+    npsHighLabel: "Definitely",
+  },
+
+  sw: {
+    // Landing
+    landingHeading:  "Habari, mimi ni Malika \nasante kwa kutoa dakika 5\nkushiriki mawazo yako.",
+    landingSub:      "Maoni yako ya kweli kuhusu uzoefu wangu wa mafunzo yananimaanisha sana. Tafadhali shiriki maelezo yako kuanza.",
+    labelName:       "Jina lako",
+    labelPhone:      "Nambari ya simu",
+    labelEmail:      "Anwani ya barua pepe",
+    placeholderName:  "mf. Amina, John…",
+    placeholderPhone: "mf. +255 712 345 678",
+    placeholderEmail: "mf. amina@crdb.com",
+    btnBegin:        "Anza dodoso →",
+
+    // Survey
+    tagline: "Mawazo yako yatanisaidia kukua.",
+    q1Label: "Unawezaje kutathmini utendaji wangu wa jumla wakati wa mafunzo?",
+    q2Label: "Ni nguvu gani ulizoziona katika kazi yangu?",
+    q2Sub:   "(Chagua zote zinazofaa)",
+    q3Label: "Ni maeneo gani ninayoweza kuboresha?",
+    q3Sub:   "(Chagua zote zinazofaa)",
+    q4Label: "Ni wakati au kazi gani maalum ambapo ulihisi nilifanya mchango wa kweli?",
+    q4Placeholder: "Shiriki kumbukumbu au wakati maalum…",
+    q5Label: "Kwa kiwango cha 0–10, una uwezekano gani wa kunipendekeza kwa mwajiri au mwenzako wa siku zijazo?",
+    q6Label: "Je, una ushauri wowote wa mwisho au ujumbe unaotaka kuniachia?",
+    q6Placeholder: "Maneno yako yana maana sana — shiriki chochote unachohisi ni sawa…",
+    btnSubmit: "Wasilisha maoni ✨",
+    npsLow:  "Haiwezekani",
+    npsHigh: "Bila shaka",
+
+    // Emoji labels
+    emojiPoor:      "Mbaya",
+    emojiFair:      "Wastani",
+    emojiGood:      "Nzuri",
+    emojiGreat:     "Vizuri sana",
+    emojiExcellent: "Bora kabisa",
+
+    // Strengths
+    strengths: [
+      "Ujuzi wa mawasiliano",   "Uwezo wa kutatua matatizo",
+      "Makini kwa undani",      "Mpango na utendaji",
+      "Ushirikiano wa timu",    "Ujuzi wa kiufundi",
+      "Uwezo wa kuzoea",        "Mtazamo mzuri"
+    ],
+
+    // Improvements
+    improvements: [
+      "Usimamizi wa muda",         "Kuchukua hatua zaidi",
+      "Kina cha ujuzi wa kiufundi","Kuuliza maswali zaidi",
+      "Ujuzi wa mawasiliano",     "Tabia ya kuandika nyaraka",
+      "Ujasiri wa kushiriki mawazo","Kukutana na mwisho wa muda"
+    ],
+
+    // Thank you
+    tyHeading: "Asante",
+    tyNote:    "Maoni yako yanamaanisha ulimwengu wangu.\nAsante kwa kuwa sehemu ya safari yangu CRDB.",
+    tySig:     "— Malika 🌸",
+
+    // Duplicate
+    dupHeading: "Tayari Umewasilisha",
+    dupNote:    "Inaonekana tayari umeshiriki maoni yako.\nJibu lako limerekodiwa — asante!",
+    dupSig:     "— Malika 💜",
+
+    npsLowLabel: "Haiwezekani",
+    npsHighLabel: "Bila shaka",
+  }
+};
+
+let currentLang = 'en';
+
+// ── SET LANGUAGE ──
+function setLanguage(lang) {
+  currentLang = lang;
+  const t = translations[lang];
+
+  // Toggle button states
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-sw').classList.toggle('active', lang === 'sw');
+
+  // ── LANDING ──
+  document.querySelector('.greeting-heading').innerText  = t.landingHeading;
+  document.querySelector('.greeting-sub').innerText      = t.landingSub;
+  document.getElementById('name-field').placeholder      = t.placeholderName;
+  document.getElementById('phone-field').placeholder     = t.placeholderPhone;
+  document.getElementById('email-field').placeholder     = t.placeholderEmail;
+  document.querySelector('.btn-primary').innerText       = t.btnBegin;
+
+  // Labels
+  const labels = document.querySelectorAll('.name-label');
+  labels[0].innerText = t.labelName;
+  labels[1].innerText = t.labelPhone;
+  labels[2].innerText = t.labelEmail;
+
+  // ── SURVEY ──
+  document.querySelector('.survey-tagline').innerText = t.tagline;
+
+  // Question labels
+  const qLabels = document.querySelectorAll('.q-label');
+  qLabels[0].innerHTML = `<span class="q-num">1</span>${t.q1Label}`;
+  qLabels[1].innerHTML = `<span class="q-num">2</span>${t.q2Label} <span style="font-size:12px;color:#a898b8;font-weight:300;">${t.q2Sub}</span>`;
+  qLabels[2].innerHTML = `<span class="q-num">3</span>${t.q3Label} <span style="font-size:12px;color:#a898b8;font-weight:300;">${t.q3Sub}</span>`;
+  qLabels[3].innerHTML = `<span class="q-num">4</span>${t.q4Label}`;
+  qLabels[4].innerHTML = `<span class="q-num">5</span>${t.q5Label}`;
+  qLabels[5].innerHTML = `<span class="q-num">6</span>${t.q6Label}`;
+
+  // Emoji labels
+  const emojiBtns = document.querySelectorAll('.emoji-btn span');
+  emojiBtns[0].innerText = t.emojiPoor;
+  emojiBtns[1].innerText = t.emojiFair;
+  emojiBtns[2].innerText = t.emojiGood;
+  emojiBtns[3].innerText = t.emojiGreat;
+  emojiBtns[4].innerText = t.emojiExcellent;
+
+  // Emoji data-labels
+  const emojiButtons = document.querySelectorAll('.emoji-btn');
+  emojiButtons[0].setAttribute('data-label', t.emojiPoor      + ' (1)');
+  emojiButtons[1].setAttribute('data-label', t.emojiFair      + ' (2)');
+  emojiButtons[2].setAttribute('data-label', t.emojiGood      + ' (3)');
+  emojiButtons[3].setAttribute('data-label', t.emojiGreat     + ' (4)');
+  emojiButtons[4].setAttribute('data-label', t.emojiExcellent + ' (5)');
+
+  // Strengths buttons
+  const strengthBtns = document.querySelectorAll('#q2-strengths .choice-btn');
+  t.strengths.forEach((s, i) => { if (strengthBtns[i]) strengthBtns[i].innerText = s; });
+
+  // Improvement buttons
+  const improveBtns = document.querySelectorAll('#q3-improve .choice-btn');
+  t.improvements.forEach((s, i) => { if (improveBtns[i]) improveBtns[i].innerText = s; });
+
+  // Textareas
+  document.getElementById('q4-moment').placeholder = t.q4Placeholder;
+  document.getElementById('q6-advice').placeholder = t.q6Placeholder;
+
+  // NPS labels
+  const npsLabels = document.querySelectorAll('.nps-labels span');
+  npsLabels[0].innerText = t.npsLow;
+  npsLabels[1].innerText = t.npsHigh;
+
+  // Submit button
+  document.querySelector('.btn-submit').innerText = t.btnSubmit;
+
+  // ── THANK YOU ──
+  document.querySelector('.ty-heading').innerText = t.tyHeading;
+  document.querySelector('.ty-note').innerText    = t.tyNote;
+  document.querySelector('.ty-crdb').innerText    = t.tySig;
+
+  // ── DUPLICATE ──
+  document.querySelector('.duplicate-inner .ty-heading').innerText = t.dupHeading;
+  document.querySelector('.duplicate-inner .ty-note').innerText    = t.dupNote;
+  document.querySelector('.duplicate-inner .ty-crdb').innerText    = t.dupSig;
+}
+
 // ── PAGE NAVIGATION ──
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => {

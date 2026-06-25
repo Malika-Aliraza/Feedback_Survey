@@ -8,6 +8,17 @@
 </head>
 <body>
 
+  <!-- ── LANGUAGE TOGGLE ── -->
+<div class="lang-toggle">
+  <button class="lang-btn active" id="btn-en" onclick="setLanguage('en')">
+    <span class="flag"></span> EN
+  </button>
+  <div class="lang-divider"></div>
+  <button class="lang-btn" id="btn-sw" onclick="setLanguage('sw')">
+    <span class="flag"></span> SW
+  </button>
+</div>
+
   <!-- ── LANDING PAGE ── -->
   <div id="page-landing" class="page active">
     <div class="landing-inner">
@@ -39,7 +50,7 @@
           <input
             id="phone-field"
             class="name-input"
-            type="tel"
+            type="number"
             placeholder="e.g. +255 712 345 678"
             maxlength="20"
           />
@@ -68,7 +79,7 @@
     <div class="survey-inner">
 
       <h2 id="survey-greeting" class="survey-greeting">Hello ✨</h2>
-      <p class="survey-tagline">Your thoughts will help me grow. Each answer is a gift.</p>
+      <p class="survey-tagline">Your thoughts will help me grow.</p>
 
       <!-- Progress Bar -->
       <div class="progress-bar-wrap">
@@ -182,7 +193,7 @@
       </div>
 
       <button class="btn-submit" onclick="submitSurvey()">
-        Submit my feedback ✨
+        Submit feedback ✨
       </button>
 
     </div>
