@@ -1,4 +1,4 @@
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbwO6Q8_7-gvQKsLdbXUAijxSOItjcQgMRGa68uSVtZ8zIBdyOatK5fYKjpHsQVYiZZh/exec";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyPabTavnJaPwDhJJPcyznwDvXBR89JMP6hMOmbSkgW3AUweobM4-rQZzicGeS5OJp9/exec";
 
 // ── PAGE NAVIGATION ──
 function showPage(id) {
@@ -28,19 +28,53 @@ function updateProgress() {
 }
 
 // ── LANDING PAGE ──
+// ── LANDING PAGE ──
 function beginSurvey() {
-  const name  = document.getElementById('name-field').value.trim();
-  const input = document.getElementById('name-field');
+  const nameVal  = document.getElementById('name-field').value.trim();
+  const phoneVal = document.getElementById('phone-field').value.trim();
+  const emailVal = document.getElementById('email-field').value.trim();
 
-  if (!name) {
-    input.focus();
-    input.style.borderColor = 'rgba(220, 100, 140, 0.7)';
-    setTimeout(() => input.style.borderColor = '', 1500);
-    return;
+  let hasError = false;
+
+  // Validate name
+  if (!nameVal) {
+    setError('name-field', true);
+    hasError = true;
+  } else {
+    setError('name-field', false);
   }
 
-  document.getElementById('survey-greeting').textContent = 'Hello, ' + name + ' ✨';
+  // Validate phone
+  if (!phoneVal) {
+    setError('phone-field', true);
+    hasError = true;
+  } else {
+    setError('phone-field', false);
+  }
+
+  // Validate email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailVal || !emailRegex.test(emailVal)) {
+    setError('email-field', true);
+    hasError = true;
+  } else {
+    setError('email-field', false);
+  }
+
+  if (hasError) return;
+
+  document.getElementById('survey-greeting').textContent = 'Hello, ' + nameVal + ' ✨';
   showPage('page-survey');
+}
+
+function setError(fieldId, isError) {
+  const field = document.getElementById(fieldId);
+  if (isError) {
+    field.classList.add('error');
+    setTimeout(() => field.classList.remove('error'), 2000);
+  } else {
+    field.classList.remove('error');
+  }
 }
 
 // ── EMOJI SCALE ──
@@ -66,30 +100,26 @@ function toggleChoice(btn) {
 }
 
 // ── COLLECT ANSWERS ──
+// ── COLLECT ANSWERS ──
 function collectAnswers() {
-  const name = document.getElementById('survey-greeting')
-    .textContent
-    .replace('Hello, ', '')
-    .replace(' ✨', '')
-    .trim();
+  const name  = document.getElementById('name-field').value.trim();
+  const phone = document.getElementById('phone-field').value.trim();
+  const email = document.getElementById('email-field').value.trim();
 
   const q1 = document.querySelector('#q1-emoji .selected')
-    ?.getAttribute('data-label') || 'No answer';
+    ?.getAttribute('data-label') || '';
 
   const q2 = [...document.querySelectorAll('#q2-strengths .selected')]
-    .map(b => b.textContent.trim()).join(', ') || 'No answer';
+    .map(b => b.textContent.trim()).join(', ');
 
   const q3 = [...document.querySelectorAll('#q3-improve .selected')]
-    .map(b => b.textContent.trim()).join(', ') || 'No answer';
+    .map(b => b.textContent.trim()).join(', ');
 
-  const q4 = document.getElementById('q4-moment').value.trim() || 'No answer';
+  const q4 = document.getElementById('q4-moment').value.trim();
+  const q5 = document.querySelector('#q5-nps .selected')?.textContent.trim();
+  const q6 = document.getElementById('q6-advice').value.trim();
 
-  const q5 = document.querySelector('#q5-nps .selected')
-    ?.textContent.trim() || 'No answer';
-
-  const q6 = document.getElementById('q6-advice').value.trim() || 'No answer';
-
-  return { name, q1, q2, q3, q4, q5, q6 };
+  return { name, phone, email, q1, q2, q3, q4, q5, q6 };
 }
 
 // ── DEVICE FINGERPRINT ──
@@ -115,20 +145,57 @@ function getDeviceFingerprint() {
 }
 
 // ── SUBMIT ──
+// ── SUBMIT ──
 async function submitSurvey() {
-  const btn         = document.querySelector('.btn-submit');
-  const fingerprint = getDeviceFingerprint();
+  const btn = document.querySelector('.btn-submit');
 
-  // ── DEVICE CHECK (localStorage) ──
+  // Device check
   if (localStorage.getItem('malika_survey_submitted') === 'true') {
     showAlreadySubmitted();
+    return;
+  }
+
+  // ── MANDATORY VALIDATION ──
+  const answers = collectAnswers();
+  let firstError = null;
+
+  if (!answers.q1) {
+    firstError = firstError || 'q1-emoji';
+    highlightError('q1-emoji');
+  }
+  if (!answers.q2) {
+    firstError = firstError || 'q2-strengths';
+    highlightError('q2-strengths');
+  }
+  if (!answers.q3) {
+    firstError = firstError || 'q3-improve';
+    highlightError('q3-improve');
+  }
+  if (!answers.q4) {
+    firstError = firstError || 'q4-moment';
+    highlightError('q4-moment');
+  }
+  if (!answers.q5) {
+    firstError = firstError || 'q5-nps';
+    highlightError('q5-nps');
+  }
+  if (!answers.q6) {
+    firstError = firstError || 'q6-advice';
+    highlightError('q6-advice');
+  }
+
+  if (firstError) {
+    // Scroll to first unanswered question
+    document.getElementById(firstError)
+      .closest('.question-card')
+      .scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
 
   btn.textContent = 'Sending... ✨';
   btn.disabled    = true;
 
-  const answers = collectAnswers();
+  const fingerprint = getDeviceFingerprint();
 
   try {
     await fetch(SHEET_URL, {
@@ -137,6 +204,8 @@ async function submitSurvey() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name:            answers.name,
+        phone:           answers.phone,
+        email:           answers.email,
         q1_performance:  answers.q1,
         q2_strengths:    answers.q2,
         q3_improvements: answers.q3,
@@ -147,7 +216,6 @@ async function submitSurvey() {
       })
     });
 
-    // Save both localStorage AND fingerprint
     localStorage.setItem('malika_survey_submitted', 'true');
     localStorage.setItem('malika_survey_name', answers.name);
     localStorage.setItem('malika_survey_fingerprint', fingerprint);
@@ -161,6 +229,18 @@ async function submitSurvey() {
 
   showPage('page-thankyou');
   setTimeout(createSparkles, 400);
+}
+
+// ── HIGHLIGHT UNANSWERED QUESTION ──
+function highlightError(id) {
+  const el = document.getElementById(id);
+  const card = el.closest('.question-card');
+  card.style.border = '1.5px solid rgba(220, 100, 140, 0.6)';
+  card.style.boxShadow = '0 0 0 4px rgba(220, 100, 140, 0.08)';
+  setTimeout(() => {
+    card.style.border = '';
+    card.style.boxShadow = '';
+  }, 3000);
 }
 
 // ── ALREADY SUBMITTED ──

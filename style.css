@@ -478,6 +478,43 @@ body {
   box-shadow: 0 8px 32px rgba(160, 120, 220, 0.08);
 }
 
+/* ── INPUT GROUP ── */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+/* ── ERROR STATE ── */
+.name-input.error {
+  border-color: rgba(220, 100, 140, 0.7);
+  box-shadow: 0 0 0 4px rgba(220, 100, 140, 0.1);
+}
+
+.error-msg {
+  font-size: 11px;
+  color: rgba(200, 80, 110, 0.9);
+  font-weight: 400;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ── MANDATORY BADGE ── */
+.mandatory-note {
+  font-size: 11px;
+  color: #a898b8;
+  font-weight: 300;
+  text-align: right;
+  margin-bottom: -8px;
+}
+
+.required-star {
+  color: #c490e0;
+  font-size: 13px;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 480px) {
   .greeting-heading  { font-size: 22px; }

@@ -13,7 +13,7 @@
     <div class="landing-inner">
 
       <h1 class="greeting-heading">
-        Hello, I'm Malika —<br>
+        Hello, I'm Malika<br>
         thank you for taking 5 minutes<br>
         to share your thoughts.
       </h1>
@@ -24,14 +24,36 @@
       </p>
 
       <div class="name-input-wrap">
-        <span class="name-label">Your name</span>
-        <input
-          id="name-field"
-          class="name-input"
-          type="text"
-          placeholder="e.g. Amina, John…"
-          maxlength="40"
-        />
+        <div class="input-group">
+          <span class="name-label">Your name</span>
+          <input
+            id="name-field"
+            class="name-input"
+            type="text"
+            placeholder="e.g. Amina, John…"
+            maxlength="60"
+          />
+        </div>
+        <div class="input-group">
+          <span class="name-label">Phone number</span>
+          <input
+            id="phone-field"
+            class="name-input"
+            type="tel"
+            placeholder="e.g. +255 712 345 678"
+            maxlength="20"
+          />
+        </div>
+        <div class="input-group">
+          <span class="name-label">Email address</span>
+          <input
+            id="email-field"
+            class="name-input"
+            type="email"
+            placeholder="e.g. amina@example.com"
+            maxlength="80"
+          />
+        </div>
         <button class="btn-primary" onclick="beginSurvey()">
           Begin the survey →
         </button>
@@ -99,7 +121,7 @@
           <button class="choice-btn" onclick="toggleChoice(this)">Taking more initiative</button>
           <button class="choice-btn" onclick="toggleChoice(this)">Technical skills depth</button>
           <button class="choice-btn" onclick="toggleChoice(this)">Asking more questions</button>
-          <button class="choice-btn" onclick="toggleChoice(this)">Presentation skills</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Communication skills</button>
           <button class="choice-btn" onclick="toggleChoice(this)">Documentation habits</button>
           <button class="choice-btn" onclick="toggleChoice(this)">Confidence in sharing ideas</button>
           <button class="choice-btn" onclick="toggleChoice(this)">Meeting deadlines</button>
@@ -154,7 +176,7 @@
         <textarea
           id="q6-advice"
           class="survey-textarea"
-          placeholder="Your words matter deeply — share whatever feels right…"
+          placeholder="Share whatever feels right…"
           rows="4"
         ></textarea>
       </div>
