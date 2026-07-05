@@ -8,67 +8,89 @@
 </head>
 <body>
 
+  <!-- ── CURSOR ── -->
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- ── BACKGROUND MONOGRAM ── -->
+  <div id="bg-monogram">M</div>
+
   <!-- ── LANGUAGE TOGGLE ── -->
-<div class="lang-toggle">
-  <button class="lang-btn active" id="btn-en" onclick="setLanguage('en')">
-    <span class="flag"></span> EN
-  </button>
-  <div class="lang-divider"></div>
-  <button class="lang-btn" id="btn-sw" onclick="setLanguage('sw')">
-    <span class="flag"></span> SW
-  </button>
-</div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLanguage('en')">
+      🇬🇧 EN
+    </button>
+    <span class="lang-sep">|</span>
+    <button class="lang-btn" id="btn-sw" onclick="setLanguage('sw')">
+      🇹🇿 SW
+    </button>
+  </div>
+
 
   <!-- ── LANDING PAGE ── -->
-  <div id="page-landing" class="page active">
+  <div id="page-landing" class="page active enter">
     <div class="landing-inner">
 
-      <h1 class="greeting-heading">
-        Hello, I'm Malika<br>
-        thank you for taking 5 minutes<br>
-        to share your thoughts.
+      <div class="monogram-seal">
+        <span class="monogram-letter">M</span>
+      </div>
+
+      <div class="eyebrow">CRDB Bank &nbsp;·&nbsp; Internship Feedback &nbsp;·&nbsp; 2025</div>
+
+      <h1 class="main-heading">
+        Hello, I'm <em>Malika</em> —<br>
+        thank you for taking<br>
+        five minutes of your time.
       </h1>
 
-      <p class="greeting-sub">
-        Your honest feedback on my internship experience means
-        everything to me. Please share your name to get started.
+      <p class="tagline">
+        Your honest words are the compass<br>
+        that guides my next chapter.
       </p>
 
-      <div class="name-input-wrap">
-        <div class="input-group">
-          <span class="name-label">Your name</span>
+      <div class="gold-rule">✦</div>
+
+      <div class="field-wrap">
+
+        <div class="field-group">
+          <label class="field-label">Your name</label>
           <input
             id="name-field"
-            class="name-input"
+            class="field-input"
             type="text"
             placeholder="e.g. Amina, John…"
             maxlength="60"
           />
         </div>
-        <div class="input-group">
-          <span class="name-label">Phone number</span>
+
+        <div class="field-group">
+          <label class="field-label">Phone number</label>
           <input
             id="phone-field"
-            class="name-input"
-            type="number"
-            placeholder="e.g. +255 712 345 678"
+            class="field-input"
+            type="tel"
+            placeholder="+255 712 345 678"
             maxlength="20"
           />
         </div>
-        <div class="input-group">
-          <span class="name-label">Email address</span>
+
+        <div class="field-group">
+          <label class="field-label">Email address</label>
           <input
             id="email-field"
-            class="name-input"
+            class="field-input"
             type="email"
-            placeholder="e.g. amina@example.com"
+            placeholder="amina@crdb.com"
             maxlength="80"
           />
         </div>
-        <button class="btn-primary" onclick="beginSurvey()">
-          Begin the survey →
-        </button>
+
       </div>
+
+      <button class="btn-gold" onclick="beginSurvey()">
+        <div class="btn-shine"></div>
+        Begin the survey
+      </button>
 
     </div>
   </div>
@@ -78,18 +100,18 @@
   <div id="page-survey" class="page">
     <div class="survey-inner">
 
-      <h2 id="survey-greeting" class="survey-greeting">Hello ✨</h2>
-      <p class="survey-tagline">Your thoughts will help me grow.</p>
+      <h2 id="survey-greeting" class="survey-greeting">Hello ✦</h2>
+      <p class="survey-tagline">Your thoughts will help me grow. Each answer is a gift.</p>
 
       <!-- Progress Bar -->
       <div class="progress-bar-wrap">
-        <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+        <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
       </div>
 
       <!-- Q1: Emoji Performance Scale -->
       <div class="question-card">
         <div class="q-label">
-          <span class="q-num">1</span>
+          <span class="q-num">I.</span>
           How would you rate my overall performance during the internship?
         </div>
         <div class="emoji-row" id="q1-emoji">
@@ -104,9 +126,9 @@
       <!-- Q2: Strengths -->
       <div class="question-card">
         <div class="q-label">
-          <span class="q-num">2</span>
+          <span class="q-num">II.</span>
           What strengths did you notice in my work?
-          <span style="font-size:12px; color:#a898b8; font-weight:300;">(Select all that apply)</span>
+          <span class="q-sub">(Select all that apply)</span>
         </div>
         <div class="choice-grid" id="q2-strengths">
           <button class="choice-btn" onclick="toggleChoice(this)">Communication skills</button>
@@ -123,16 +145,16 @@
       <!-- Q3: Improvements -->
       <div class="question-card">
         <div class="q-label">
-          <span class="q-num">3</span>
+          <span class="q-num">III.</span>
           What areas could I improve on?
-          <span style="font-size:12px; color:#a898b8; font-weight:300;">(Select all that apply)</span>
+          <span class="q-sub">(Select all that apply)</span>
         </div>
         <div class="choice-grid" id="q3-improve">
           <button class="choice-btn" onclick="toggleChoice(this)">Time management</button>
           <button class="choice-btn" onclick="toggleChoice(this)">Taking more initiative</button>
           <button class="choice-btn" onclick="toggleChoice(this)">Technical skills depth</button>
           <button class="choice-btn" onclick="toggleChoice(this)">Asking more questions</button>
-          <button class="choice-btn" onclick="toggleChoice(this)">Communication skills</button>
+          <button class="choice-btn" onclick="toggleChoice(this)">Presentation skills</button>
           <button class="choice-btn" onclick="toggleChoice(this)">Documentation habits</button>
           <button class="choice-btn" onclick="toggleChoice(this)">Confidence in sharing ideas</button>
           <button class="choice-btn" onclick="toggleChoice(this)">Meeting deadlines</button>
@@ -142,13 +164,13 @@
       <!-- Q4: Highlight Moment -->
       <div class="question-card">
         <div class="q-label">
-          <span class="q-num">4</span>
-          What is one specific moment or task where you felt I made a real contribution?
+          <span class="q-num">IV.</span>
+          What is one specific moment where you felt I made a real contribution?
         </div>
         <textarea
           id="q4-moment"
           class="survey-textarea"
-          placeholder="Share a specific memory or moment…"
+          placeholder="Your words, however brief, are treasured…"
           rows="4"
         ></textarea>
       </div>
@@ -156,8 +178,8 @@
       <!-- Q5: NPS -->
       <div class="question-card">
         <div class="q-label">
-          <span class="q-num">5</span>
-          On a scale of 0–10, how likely are you to recommend me to a future employer or colleague?
+          <span class="q-num">V.</span>
+          On a scale of 0–10, how likely are you to recommend me to a future employer?
         </div>
         <div class="nps-row" id="q5-nps">
           <button class="nps-btn" onclick="selectNPS(this)">0</button>
@@ -181,19 +203,19 @@
       <!-- Q6: Final Advice -->
       <div class="question-card">
         <div class="q-label">
-          <span class="q-num">6</span>
+          <span class="q-num">VI.</span>
           Any final advice or a message you'd like to leave for me?
         </div>
         <textarea
           id="q6-advice"
           class="survey-textarea"
-          placeholder="Share whatever feels right…"
+          placeholder="Your wisdom lights the road ahead…"
           rows="4"
         ></textarea>
       </div>
 
       <button class="btn-submit" onclick="submitSurvey()">
-        Submit feedback ✨
+        Submit my feedback ✦
       </button>
 
     </div>
@@ -203,12 +225,21 @@
   <!-- ── THANK YOU PAGE ── -->
   <div id="page-thankyou" class="page">
     <div class="ty-inner">
+
+      <div class="ty-seal">✦</div>
+
       <div class="ty-heading">Thank You</div>
+
       <p class="ty-note">
         Your feedback means the world to me.<br>
-        Thank you for being part of my journey at CRDB.
+        Thank you for being part of my<br>
+        journey at CRDB.
       </p>
-      <p class="ty-crdb">— Malika 🌸</p>
+
+      <div class="gold-rule">✦</div>
+
+      <p class="ty-crdb">MALIKA &nbsp;·&nbsp; CRDB BANK &nbsp;·&nbsp; 2025</p>
+
     </div>
   </div>
 
@@ -216,13 +247,22 @@
   <!-- ── ALREADY SUBMITTED PAGE ── -->
   <div id="page-duplicate" class="page">
     <div class="duplicate-inner">
+
+      <div class="ty-seal">✦</div>
+
       <div class="ty-heading">Already Submitted</div>
+
       <p class="ty-note">
         Hey <span id="duplicate-name"></span> 🌸<br>
-        It looks like you've already shared your feedback.<br>
-        Your response has been recorded — thank you!
+        It looks like you've already shared<br>
+        your feedback. Your response has<br>
+        been recorded — thank you.
       </p>
-      <p class="ty-crdb">— Malika 💜</p>
+
+      <div class="gold-rule">✦</div>
+
+      <p class="ty-crdb">MALIKA &nbsp;·&nbsp; CRDB BANK &nbsp;·&nbsp; 2025</p>
+
     </div>
   </div>
 
