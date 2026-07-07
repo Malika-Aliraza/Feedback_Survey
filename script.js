@@ -183,6 +183,7 @@ const translations = {
     placeholderPhone: "+255 712 345 678",
     placeholderEmail: "amina@crdb.com",
     btnBegin:         "Begin the survey",
+    greeting: "Hello,",
     tagline:          "Your thoughts will help me grow.",
     q1Label:          "How would you rate my overall performance during the internship?",
     q2Label:          "What strengths did you notice in my work?",
@@ -230,6 +231,7 @@ const translations = {
     placeholderPhone: "+255 712 345 678",
     placeholderEmail: "amina@crdb.com",
     btnBegin:         "Anza dodoso",
+    greeting: "Habari,",
     tagline:          "Mawazo yako yatanisaidia kukua.",
     q1Label:          "Unawezaje kutathmini utendaji wangu wakati wa mafunzo?",
     q2Label:          "Ni nguvu gani ulizoziona katika kazi yangu?",
@@ -281,12 +283,12 @@ function setLanguage(lang) {
 
   // Landing
   document.querySelector('.main-heading').innerHTML =
-    t.landingHeading.split('\n').join('<br>').replace('Malika', '<em>Malika</em>');
-  document.querySelector('.tagline').innerHTML =
-    t.landingSub.split('\n').join('<br>');
+  t.landingHeading.split('\n').join('<br>').replace('Malika', '<em>Malika</em>');
   document.getElementById('name-field').placeholder  = t.placeholderName;
   document.getElementById('phone-field').placeholder = t.placeholderPhone;
   document.getElementById('email-field').placeholder = t.placeholderEmail;
+  const beginBtn = document.querySelector('.btn-gold .btn-text');
+if (beginBtn) beginBtn.textContent = t.btnBegin;
 
   const labels = document.querySelectorAll('.field-label');
   labels[0].innerText = t.labelName;
@@ -294,8 +296,8 @@ function setLanguage(lang) {
   labels[2].innerText = t.labelEmail;
 
   // Survey
-  document.querySelector('.survey-tagline').innerText = t.tagline;
-
+const surveyTagline = document.querySelector('.survey-tagline');
+if (surveyTagline) surveyTagline.innerText = t.tagline;
   const qLabels = document.querySelectorAll('.q-label');
   qLabels[0].innerHTML = `<span class="q-num">I.</span>${t.q1Label}`;
   qLabels[1].innerHTML = `<span class="q-num">II.</span>${t.q2Label} <span class="q-sub">${t.q2Sub}</span>`;
@@ -339,6 +341,13 @@ function setLanguage(lang) {
   document.querySelector('.duplicate-inner .ty-heading').innerText = t.dupHeading;
   document.querySelector('.duplicate-inner .ty-note').innerHTML    = t.dupNote.split('\n').join('<br>');
   document.querySelector('.duplicate-inner .ty-crdb').innerText    = t.dupSig;
+
+  const greetingEl = document.getElementById('survey-greeting');
+if (greetingEl && greetingEl.textContent.includes('✦')) {
+  const name = localStorage.getItem('malika_survey_name') ||
+    document.getElementById('name-field').value.trim();
+  greetingEl.textContent = t.greeting + ' ' + name + ' ✦';
+}
 }
 
 // ════════════════════════════════════════
@@ -367,7 +376,7 @@ function beginSurvey() {
   if (error) return;
 
   document.getElementById('survey-greeting').textContent =
-    'Hello, ' + nameVal + ' ✦';
+  translations[currentLang].greeting + ' ' + nameVal + ' ✦';
   showPage('page-survey');
 }
 
