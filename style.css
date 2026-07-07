@@ -768,7 +768,7 @@ html, body {
   .nps-btn         { width: 32px; height: 32px; }
 }
 
-/* ── TAP RIPPLE ── */
+/* ── TAP RIPPLE ── *
 .ripple {
   position: absolute;
   border-radius: 50%;

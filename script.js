@@ -175,8 +175,7 @@ function showPage(id) {
 // ════════════════════════════════════════
 const translations = {
   en: {
-    landingHeading:   "Hello, I'm Malika —\nthank you for taking\nfive minutes of your time.",
-    landingSub:       "Your honest words are the compass\nthat guides my next chapter.",
+    landingHeading:   "Hello, I'm Malika\nthank you for taking\nfive minutes of your time.",
     labelName:        "Your name",
     labelPhone:       "Phone number",
     labelEmail:       "Email address",
@@ -184,7 +183,7 @@ const translations = {
     placeholderPhone: "+255 712 345 678",
     placeholderEmail: "amina@crdb.com",
     btnBegin:         "Begin the survey",
-    tagline:          "Your thoughts will help me grow. Each answer is a gift.",
+    tagline:          "Your thoughts will help me grow.",
     q1Label:          "How would you rate my overall performance during the internship?",
     q2Label:          "What strengths did you notice in my work?",
     q2Sub:            "(Select all that apply)",
@@ -195,7 +194,7 @@ const translations = {
     q5Label:          "On a scale of 0–10, how likely are you to recommend me to a future employer?",
     q6Label:          "Any final advice or a message you'd like to leave for me?",
     q6Placeholder:    "Your wisdom lights the road ahead…",
-    btnSubmit:        "Submit my feedback ✦",
+    btnSubmit:        "Submit feedback ✦",
     npsLow:           "Not likely",
     npsHigh:          "Definitely",
     emojiPoor:        "Poor",
@@ -212,8 +211,8 @@ const translations = {
     improvements: [
       "Time management",             "Taking more initiative",
       "Technical skills depth",      "Asking more questions",
-      "Presentation skills",         "Documentation habits",
-      "Confidence in sharing ideas", "Meeting deadlines"
+      "Communication skills",         "Documentation habits",
+      "Confidence in sharing ideas", "Problem-solving ability"
     ],
     tyHeading: "Thank You",
     tyNote:    "Your feedback means the world to me.\nThank you for being part of my\njourney at CRDB.",
@@ -223,8 +222,7 @@ const translations = {
     dupSig:    "MALIKA · CRDB BANK · 2025",
   },
   sw: {
-    landingHeading:   "Habari, mimi ni Malika —\nasante kwa kutoa\ndakika tano za wakati wako.",
-    landingSub:       "Maneno yako ya kweli ni dira\nInayoongoza hatua zangu zijazo.",
+    landingHeading:   "Habari, mimi ni Malika\nasante kwa kutoa\ndakika tano za wakati wako.",
     labelName:        "Jina lako",
     labelPhone:       "Nambari ya simu",
     labelEmail:       "Anwani ya barua pepe",
@@ -232,7 +230,7 @@ const translations = {
     placeholderPhone: "+255 712 345 678",
     placeholderEmail: "amina@crdb.com",
     btnBegin:         "Anza dodoso",
-    tagline:          "Mawazo yako yatanisaidia kukua. Kila jibu ni zawadi.",
+    tagline:          "Mawazo yako yatanisaidia kukua.",
     q1Label:          "Unawezaje kutathmini utendaji wangu wakati wa mafunzo?",
     q2Label:          "Ni nguvu gani ulizoziona katika kazi yangu?",
     q2Sub:            "(Chagua zote zinazofaa)",
@@ -243,7 +241,7 @@ const translations = {
     q5Label:          "Kwa kiwango cha 0–10, una uwezekano gani wa kunipendekeza?",
     q6Label:          "Je, una ushauri wowote wa mwisho au ujumbe unaotaka kuniachia?",
     q6Placeholder:    "Hekima yako inawasha njia iliyo mbele…",
-    btnSubmit:        "Wasilisha maoni yangu ✦",
+    btnSubmit:        "Wasilisha maoni ✦",
     npsLow:           "Haiwezekani",
     npsHigh:          "Bila shaka",
     emojiPoor:        "Mbaya",
@@ -260,8 +258,8 @@ const translations = {
     improvements: [
       "Usimamizi wa muda",           "Kuchukua hatua zaidi",
       "Kina cha ujuzi wa kiufundi",  "Kuuliza maswali zaidi",
-      "Ujuzi wa uwasilishaji",       "Tabia ya kuandika nyaraka",
-      "Ujasiri wa kushiriki mawazo", "Kukutana na mwisho wa muda"
+      "Ujuzi wa mawasiliano",       "Tabia ya kuandika nyaraka",
+      "Ujasiri wa kushiriki mawazo", "Uwezo wa kutatua matatizo"
     ],
     tyHeading: "Asante",
     tyNote:    "Maoni yako yanamaanisha ulimwengu wangu.\nAsante kwa kuwa sehemu ya safari\nyangu CRDB.",
